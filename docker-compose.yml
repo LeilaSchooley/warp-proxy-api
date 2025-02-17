@@ -28,7 +28,7 @@ services:
       context: .
       dockerfile: Dockerfile.dante
     ports:
-      - "1081:1080"
+      - "1081:1081"
 
   dante2:
     build:
@@ -42,7 +42,7 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
     ports:
-      - "8080:80"
+      - "9090:80"
     depends_on:
       - warp_proxy1
       - warp_proxy2

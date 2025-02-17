@@ -3,6 +3,7 @@ import jwt
 import datetime
 import subprocess
 import os
+from functools import wraps  # ✅ Add this import
 
 app = Flask(__name__)
 SECRET_KEY = os.environ.get("SECRET_KEY", "default-secret-key")
@@ -21,7 +22,9 @@ def get_token():
     return jsonify({"message": "Invalid credentials"}), 401
 
 # Middleware to verify JWT token
+
 def token_required(func):
+    @wraps(func)  # ✅ Use wraps to prevent Flask from overwriting functions
     def wrapper(*args, **kwargs):
         token = request.headers.get("Authorization")
         if not token:
